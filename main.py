@@ -252,33 +252,74 @@ def openApp(command):
             speak("Sorry, I couldn't find Chrome on your system")
 
 def closeApp(command):
-    if "calculator" in command:
-        speak("closing calculator")
-        os.system("taskkill /f /im calc.exe")
-    elif "notepad" in command:
-        speak("closing notepad")
-        os.system('taskkill /f /im notepad.exe')
-    elif "paint" in command:
-        speak("closing paint")
-        os.system('taskkill /f /im mspaint.exe')
-    elif "vs code" in command or "visual studio code" in command:
-        speak("closing visual studio code")
-        os.system('taskkill /f /im Code.exe')
-    elif "vlc" in command or "media player" in command:
-        speak("closing vlc media player")
-        os.system('taskkill /f /im vlc.exe')
-    elif "powerpoint" in command or "presentation" in command:
-        speak("closing microsoft powerpoint")
-        os.system('taskkill /f /im POWERPNT.EXE')
-    elif "word" in command or "document" in command:
-        speak("closing microsoft word")
-        os.system('taskkill /f /im WINWORD.EXE')
-    elif "excel" in command or "spreadsheet" in command:
-        speak("closing microsoft excel")
-        os.system('taskkill /f /im EXCEL.EXE')
-    elif "chrome" in command:
-        speak("closing google chrome")
-        os.system('taskkill /f /im chrome.exe')
+    try:
+        if "calculator" in command:
+            # Check if calculator is running
+            if "Calculator.exe" in (p.name() for p in psutil.process_iter()):
+                speak("closing calculator")
+                os.system("taskkill /f /im Calculator.exe")
+            else:
+                speak("Calculator is not running")
+                
+        elif "notepad" in command:
+            if "notepad.exe" in (p.name() for p in psutil.process_iter()):
+                speak("closing notepad")
+                os.system("taskkill /f /im notepad.exe")
+            else:
+                speak("Notepad is not running")
+                
+        elif "paint" in command:
+            if "mspaint.exe" in (p.name() for p in psutil.process_iter()):
+                speak("closing paint")
+                os.system("taskkill /f /im mspaint.exe")
+            else:
+                speak("Paint is not running")
+                
+        elif "vs code" in command or "visual studio code" in command:
+            if "Code.exe" in (p.name() for p in psutil.process_iter()):
+                speak("closing visual studio code")
+                os.system("taskkill /f /im Code.exe")
+            else:
+                speak("Visual Studio Code is not running")
+                
+        elif "vlc" in command or "media player" in command:
+            if "vlc.exe" in (p.name() for p in psutil.process_iter()):
+                speak("closing vlc media player")
+                os.system("taskkill /f /im vlc.exe")
+            else:
+                speak("VLC Media Player is not running")
+                
+        elif "powerpoint" in command or "presentation" in command:
+            if "POWERPNT.EXE" in (p.name() for p in psutil.process_iter()):
+                speak("closing microsoft powerpoint")
+                os.system("taskkill /f /im POWERPNT.EXE")
+            else:
+                speak("PowerPoint is not running")
+                
+        elif "word" in command or "document" in command:
+            if "WINWORD.EXE" in (p.name() for p in psutil.process_iter()):
+                speak("closing microsoft word")
+                os.system("taskkill /f /im WINWORD.EXE")
+            else:
+                speak("Word is not running")
+                
+        elif "excel" in command or "spreadsheet" in command:
+            if "EXCEL.EXE" in (p.name() for p in psutil.process_iter()):
+                speak("closing microsoft excel")
+                os.system("taskkill /f /im EXCEL.EXE")
+            else:
+                speak("Excel is not running")
+                
+        elif "chrome" in command:
+            if "chrome.exe" in (p.name() for p in psutil.process_iter()):
+                speak("closing google chrome")
+                os.system("taskkill /f /im chrome.exe")
+            else:
+                speak("Chrome is not running")
+                
+    except Exception as e:
+        speak(f"Error closing application: {e}")
+        print(f"Error: {e}")
 
 def browsing(query):
     if 'google' in query:
