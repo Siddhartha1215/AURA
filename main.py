@@ -159,8 +159,18 @@ def social_media(command):
         # print("Message to send")
         # message = input()
         # kit.sendwhatmsg_instantly(number, message, 10)
-        speak("opening your whatsapp")
-        webbrowser.open("https://web.whatsapp.com/")
+        try:
+            speak("Opening WhatsApp")
+            subprocess.run([
+                'powershell.exe',
+                'start',
+                'shell:AppsFolder\\5319275A.WhatsAppDesktop_cv1g1gvanyjgm!App'
+            ])
+            speak("WhatsApp opened successfully")                    
+        except Exception as e:
+            speak("Error opening WhatsApp. Opening WhatsApp Web instead.")
+            print(f"Error: {e}")
+            webbrowser.open("https://web.whatsapp.com/")
         
     elif 'discord' in command:
         speak("opening your discord server")
